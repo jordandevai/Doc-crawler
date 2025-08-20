@@ -1,70 +1,27 @@
 #!/usr/bin/env python3
+"""
+Doc-Crawler Application Entry Point.
 
+Initializes and runs the PyQt6 application, setting up the main window.
+"""
 import sys
-import os
-from PyQt6.QtWidgets import QApplication, QMessageBox
-from PyQt6.QtCore import Qt
-from ui.main_window import MainWindow
+from PyQt6.QtWidgets import QApplication
 
-
-def check_dependencies():
-    missing_deps = []
-    
-    try:
-        import PyQt6
-    except ImportError:
-        missing_deps.append('PyQt6')
-    
-    try:
-        import httpx
-    except ImportError:
-        missing_deps.append('httpx')
-    
-    try:
-        import bs4
-    except ImportError:
-        missing_deps.append('beautifulsoup4')
-    
-    try:
-        import lxml
-    except ImportError:
-        missing_deps.append('lxml')
-    
-    try:
-        import markdownify
-    except ImportError:
-        missing_deps.append('markdownify')
-    
-    if missing_deps:
-        print("Missing required dependencies:")
-        for dep in missing_deps:
-            print(f"  - {dep}")
-        print("\nPlease install them using:")
-        print("pip install -r requirements.txt")
-        return False
-    
-    return True
+from src.ui.main_window import MainWindow
 
 
 def main():
-    if not check_dependencies():
-        sys.exit(1)
-    
+    """Initializes the Qt application and the main window."""
     app = QApplication(sys.argv)
-    
-    app.setApplicationName("Web Crawler")
-    app.setApplicationVersion("1.0")
+
+    app.setApplicationName("Doc-Crawler")
+    app.setApplicationVersion("1.1.0")
     app.setOrganizationName("Doc-Crawler")
-    
-    try:
-        window = MainWindow()
-        window.show()
-        
-        sys.exit(app.exec())
-        
-    except Exception as e:
-        print(f"Failed to start application: {str(e)}")
-        sys.exit(1)
+
+    window = MainWindow()
+    window.show()
+
+    sys.exit(app.exec())
 
 
 if __name__ == "__main__":
